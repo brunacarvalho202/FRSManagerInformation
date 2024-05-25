@@ -10,6 +10,4 @@ Nosso aplicativo de gestão foi elaborado para atender às demandas específicas
 
 - **Gestão de Clientes:** Mantenha um banco de dados detalhado dos seus clientes.
 
-- **Rastreamento de Serviços de Despacho:** Registre e monitore cada serviço de despacho de veículos.
-## Por que escolher nosso aplicativo?
-
+- **Rastreamento de Serviços de Despacho:** Registre e monitore cada serviço de despacho de veículos
