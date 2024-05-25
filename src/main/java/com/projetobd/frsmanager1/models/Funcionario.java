@@ -1,8 +1,8 @@
 package com.projetobd.frsmanager1.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Funcionario {
@@ -22,10 +22,14 @@ public class Funcionario {
     @JsonProperty("supervisor_cpf") //usar pois o nome no json esta diferente, para serializar corretamente
     private String supervisorCpf; // CPF do supervisor / auto-relacionamento
 
-    private List<Dependente> dependentes; //dependencia
+    private List<Dependente> dependentes = new ArrayList<>();
+
+    public void addDependente(Dependente dependente) {
+        this.dependentes.add(dependente);
+    }//dependencia
 
     //padrao
-    public Funcionario(){};
+    public Funcionario(){}
 
     public String getCpf() {
         return cpf;

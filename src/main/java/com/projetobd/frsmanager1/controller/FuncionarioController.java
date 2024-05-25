@@ -18,6 +18,7 @@ public class FuncionarioController {
         this.funcionarioDAO = funcionarioDAO;
     }
 
+    //funcionou com dependentes
     @PostMapping("/novo") //feito - analisar pq msm mandando tel ele nao salva no bd - agr salva mas retorna duplicado
     public boolean salvarFuncionario(@RequestBody Funcionario funcionario) {
 

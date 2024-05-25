@@ -1,0 +1,65 @@
+CREATE TABLE Funcionario (
+                             cpf VARCHAR(11) PRIMARY KEY,
+                             nome VARCHAR(255) NOT NULL,
+                             carteira_trabalho VARCHAR(20) NOT NULL,
+                             endereco_rua VARCHAR(255),
+                             endereco_bairro VARCHAR(100),
+                             endereco_numero INT DEFAULT 0, -- Adicionando valor padrão (default)
+                             supervisor_cpf VARCHAR(11),
+                             FOREIGN KEY (supervisor_cpf) REFERENCES Funcionario(cpf),
+                             CONSTRAINT unique_cpf UNIQUE (cpf)
+);
+
+CREATE TABLE Telefone (
+                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          cpf_funcionario VARCHAR(11),
+                          telefone VARCHAR(20) NOT NULL,
+                          FOREIGN KEY (cpf_funcionario)
+                              REFERENCES Funcionario(cpf)
+                              ON DELETE CASCADE,
+                          CONSTRAINT unique_telefone UNIQUE (telefone)
+);
+
+CREATE TABLE Dependente (
+                            idDependente INT AUTO_INCREMENT PRIMARY KEY,
+                            nome VARCHAR(255),
+                            cpfFuncionario VARCHAR(11), -- Mudando para referenciar a coluna cpf da tabela Funcionario
+                            FOREIGN KEY (cpfFuncionario) REFERENCES Funcionario(cpf) ON DELETE CASCADE -- Ajustando para referenciar a coluna cpf da tabela Funcionario
+);
+
+
+DELIMITER //
+
+CREATE PROCEDURE DeleteSupervisor(IN supervisorCPF VARCHAR(11))
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE subordinadoCPF VARCHAR(11);
+
+    -- Cursor para selecionar os subordinados do supervisor
+    DECLARE cur CURSOR FOR
+SELECT cpf FROM Funcionario WHERE supervisor_cpf = supervisorCPF;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    -- Abrir o cursor
+OPEN cur;
+
+-- Loop para atualizar os subordinados
+read_loop: LOOP
+        FETCH cur INTO subordinadoCPF;
+        IF done THEN
+            LEAVE read_loop;
+END IF;
+
+        -- Atualizar o supervisor dos subordinados para nulo
+UPDATE Funcionario SET supervisor_cpf = NULL WHERE cpf = subordinadoCPF;
+END LOOP;
+
+
+CLOSE cur;
+
+-- Excluir o supervisor
+DELETE FROM Funcionario WHERE cpf = supervisorCPF;
+END//
+
+DELIMITER ;
