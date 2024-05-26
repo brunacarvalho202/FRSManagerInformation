@@ -1,0 +1,12 @@
+Uma empresa de despacho de documentações automobilísticas realiza serviços para seus clientes, sejam eles pessoa física
+ou jurídica, como concessionárias, locadoras e transportadoras, através da plataforma/sistema do Detran. Essa empresa
+atua na facilitação de serviços burocráticos como emplacamento, ATPV e transferência de veículos. Esses veículos podem
+ser novos, e devem possuir nota fiscal, ou usados, necessitando documento de vistoria do DETRAN, ambos necessitando do
+ATPV assinado e reconhecido firma. Caso o serviço seja para uma pessoa física, necessita-se de documentos como CPF/RG,
+cópia da carteira nacional de habilitação (CNH) e procuração reconhecida firma; caso seja feita para uma pessoa
+jurídica, é preciso da cópia do contrato social, esta possuindo nome e CNPJ, cópia da CNH da pessoa que assina pela
+empresa e procuração reconhecida firma. Além disso, os automóveis podem variar em tipos como carro, moto e caminhão,
+as informações necessárias dos veículos são: número de placa, número de chassi, número de motor, modelo, preço, cor e
+ano que ficam na nota fiscal. A empresa possui o CEO, que faz todo gerenciamento e contato com clientes, um motoqueiro,
+que faz a ronda e coleta os documentos nas empresas, e mais três funcionários que realizam os serviços internamente,
+todos devidamente cadastrados com CPF, nome, endereço, número da carteira de trabalho e telefone.

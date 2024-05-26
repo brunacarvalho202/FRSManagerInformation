@@ -1,6 +1,8 @@
 package com.projetobd.frsmanager1.controller;
 
+import com.projetobd.frsmanager1.DAO.DependenteDAO;
 import com.projetobd.frsmanager1.DAO.FuncionarioDAO;
+import com.projetobd.frsmanager1.models.Dependente;
 import com.projetobd.frsmanager1.models.Funcionario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,11 @@ import java.util.List;
 @RequestMapping("/funcionarios")
 public class FuncionarioController {
 
-    private final FuncionarioDAO funcionarioDAO;
+    @Autowired
+    private FuncionarioDAO funcionarioDAO;
+
+    @Autowired
+    private DependenteDAO dependenteDAO;
 
     @Autowired
     public FuncionarioController(FuncionarioDAO funcionarioDAO) {
@@ -19,29 +25,44 @@ public class FuncionarioController {
     }
 
     //funcionou com dependentes
-    @PostMapping("/novo") //feito - analisar pq msm mandando tel ele nao salva no bd - agr salva mas retorna duplicado
+    @PostMapping("/novo") //feito
     public boolean salvarFuncionario(@RequestBody Funcionario funcionario) {
 
         return funcionarioDAO.save(funcionario);
     }
 
+    @PutMapping("/atualizar") //feito
+    public void atualizarFuncionario(@RequestBody Funcionario funcionario) {
+
+        funcionarioDAO.updateFuncionario(funcionario);
+    }
+
+    @DeleteMapping("/{cpf}")//feito
+    public void deletarFuncionario(@PathVariable String cpf) {
+        funcionarioDAO.deleteFuncionario(cpf);
+    }
+
     @GetMapping("/{cpf}") //feito
     public Funcionario encontrarFuncionarioPorId(@PathVariable String cpf) {
+
         return funcionarioDAO.findByCpf(cpf);
     }
 
     @GetMapping("/todos") //feito
     public List<Funcionario> listarFuncionarios() {
+
         return funcionarioDAO.findAll();
     }
 
-    @PutMapping("/atualizar") //tenatr atualizar junto com o teleofne tb
-    public void atualizarFuncionario(@RequestBody Funcionario funcionario) {
-        funcionarioDAO.updateFuncionario(funcionario);
+    @GetMapping("/{cpfFuncionario}/dependentes") //feito
+    public List<Dependente> listarDependentesDoFuncionario(@PathVariable String cpfFuncionario) {
+        return dependenteDAO.findAllByCpfFuncionario(cpfFuncionario);
     }
 
-    @DeleteMapping("/{cpf}")//feito - nao deletava sem deletar os nuemros primeiro - feito - mudança p usar cascade no procedure
-    public void deletarFuncionario(@PathVariable String cpf) {
-        funcionarioDAO.deleteFuncionario(cpf);
-    }
 }
+
+
+
+
+
+
