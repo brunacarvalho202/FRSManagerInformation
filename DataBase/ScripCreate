@@ -65,3 +65,10 @@ BEGIN
 END//
 
 DELIMITER ;
+
+create table Servico(
+	codigo_servico int auto_increment primary key,
+	descricao varchar(200),
+	valor decimal(10,2)
+);
+
