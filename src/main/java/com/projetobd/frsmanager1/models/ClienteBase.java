@@ -4,6 +4,7 @@ import java.io.File;
 
 public class ClienteBase {
     private String CNH; //primary key
+    private String nome;
     private File procuracao;
 
     public String getCNH() {
@@ -12,6 +13,8 @@ public class ClienteBase {
     public void setCNH(String cNH) {
         CNH = cNH;
     }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
     public File getProcuracao() {
         return procuracao;
     }

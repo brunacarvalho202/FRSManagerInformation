@@ -72,3 +72,17 @@ create table Servico(
 	valor decimal(10,2)
 );
 
+CREATE TABLE ClienteFisico (
+  cnh VARCHAR(11) PRIMARY KEY,
+  nome VARCHAR(500),
+  procuracao longblob,
+  CONSTRAINT unique_cnh UNIQUE (cnh)
+);
+
+CREATE TABLE ClienteJuridico (
+  cnh VARCHAR(11) PRIMARY KEY,
+  nome VARCHAR(500),
+  procuracao longblob,
+  contrato_social longblob,
+  CONSTRAINT unique_cnh UNIQUE (cnh)
+);
