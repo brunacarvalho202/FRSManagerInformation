@@ -1,4 +1,4 @@
-Link do frontend que consome essa AP: https://github.com/marianefontes/FRSManagementeFrontEnd
+Link do frontend que consome essa API: https://github.com/marianefontes/FRSManagementeFrontEnd
 
 # FRS Manager Information
 
