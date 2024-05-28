@@ -86,3 +86,17 @@ CREATE TABLE ClienteJuridico (
   contrato_social longblob,
   CONSTRAINT unique_cnh UNIQUE (cnh)
 );
+
+create table VeiculoNovo(
+	placa varchar(7) primary key,
+	categoria varchar(10),
+	atpv longblob,
+	nota_fiscal longblob
+);
+
+create table VeiculoUsado(
+	placa varchar(7) primary key,
+	categoria varchar(10),
+	atpv longblob,
+	vistoria longblob
+);

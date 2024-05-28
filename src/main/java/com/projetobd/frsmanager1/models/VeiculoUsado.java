@@ -2,16 +2,16 @@ package com.projetobd.frsmanager1.models;
 
 import java.io.File;
 
-public class VeiculoUsado {
+public class VeiculoUsado extends VeiculoBase {
 
-    private File doc_vistoria;
+    private File vistoria;
 
-    public File getDoc_vistoria() {
-        return doc_vistoria;
+    public File getVistoria() {
+        return vistoria;
     }
 
-    public void setDoc_vistoria(File doc_vistoria) {
-        this.doc_vistoria = doc_vistoria;
+    public void setVistoria(File vistoria) {
+        this.vistoria = vistoria;
     }
 }
 
