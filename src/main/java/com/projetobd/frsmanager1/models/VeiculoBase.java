@@ -1,10 +1,8 @@
 package com.projetobd.frsmanager1.models;
 
-import java.io.File;
-
 public class VeiculoBase {
     private String placa; //primary key
-    private File ATPV;
+    private String ATPV;
     private String categoria;
 
     public String getPlaca() {
@@ -15,11 +13,11 @@ public class VeiculoBase {
         this.placa = placa;
     }
 
-    public File getATPV() {
+    public String getATPV() {
         return ATPV;
     }
 
-    public void setATPV(File ATPV) {
+    public void setATPV(String ATPV) {
         this.ATPV = ATPV;
     }
 

@@ -12,6 +12,5 @@ public class VeiculoUsado extends VeiculoBase {
 
     public void setVistoria(File vistoria) {
         this.vistoria = vistoria;
-    }
 }
-
+}
