@@ -31,12 +31,17 @@ Antes de começar, certifique-se de configurar sua máquina com as tecnologias n
 2. **Clone o Repositório do Frontend:**
    - Em seguida, clone o repositório do frontend na sua máquina local. Isso garantirá que você tenha acesso à interface do usuário e aos recursos visuais do projeto.
    - Link do Repositório do Frontend: https://github.com/marianefontes/FRSManagementeFrontEnd
+   - O readMe do repositório do front possui todo o tutorial de como usar também.
 
-3. **Execute as Aplicações:**
+3. **Crie o banco de dados para que sua aplicação tenha acesso**
+   - Primeiro certifique-se de que a senha e o user do banco de dados estão padronizados com o do repositório "root" no arquivo properties.
+   - Use o Script de criação das tabelas e da procedure na pasta DatBase.
+
+5. **Execute as Aplicações:**
    - Com ambos os repositórios clonados, inicie a execução das duas aplicações. Isso pode ser feito através de comandos específicos do ambiente de desenvolvimento ou utilizando IDEs como IntelliJ IDEA, Eclipse ou Visual Studio Code. (usamos vscode para o front e Intellij para o back, caso queira seguir a risca como fizemos)
    - Certifique-se de que ambas as aplicações estão em execução corretamente, garantindo assim a comunicação entre o frontend e o backend.
 
-4. **Acesso Localhost:**
+6. **Acesso Localhost:**
    - Após iniciar as aplicações, abra um navegador da web e acesse o endereço http://localhost:3000
 
 ### Observações:
