@@ -44,10 +44,8 @@ public class DependenteDAO {
     // Deletar um dependente pelo ID
     public boolean deleteDependente(String cpf) {
         String sql = "DELETE FROM Dependente WHERE cpfDependente = ?";
-
         jdbcTemplate.update(sql, cpf);
-
-        return true ;
+        return true;
     }
 
     // Buscar um dependente pelo CPF
@@ -71,8 +69,8 @@ public class DependenteDAO {
         String sql = "SELECT d.nome, d.cpfDependente, d.cpfFuncionario " +
                 "FROM Dependente d " +
                 "WHERE d.cpfFuncionario = ?";
-
-        return jdbcTemplate.query(sql,rowMapper,cpfFuncionario);
+        return jdbcTemplate.query(sql, rowMapper, cpfFuncionario);
     }
+
 
 }

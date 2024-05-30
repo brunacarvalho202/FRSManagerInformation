@@ -30,15 +30,15 @@ public class DependenteController {
         return dependenteDAO.updateDependente(cpf, dependente);
     }
 
-    @DeleteMapping("/{cpf}") //feito
+    @DeleteMapping("/{cpf}")
     public boolean deleteDependente(@PathVariable String cpf) {
-
         return dependenteDAO.deleteDependente(cpf);
     }
 
-    @GetMapping("/{cpfDependente}") //feito
-    public Dependente encontrarDependentePorCpf(@PathVariable String cpfDependente) {
-        return dependenteDAO.findByCpf(cpfDependente);
+
+    @GetMapping("/funcionario/{cpfFuncionario}")
+    public List<Dependente> findAllByCpfFuncionario(@PathVariable String cpfFuncionario) {
+        return dependenteDAO.findAllByCpfFuncionario(cpfFuncionario);
     }
 
     @GetMapping("/todos") //feito

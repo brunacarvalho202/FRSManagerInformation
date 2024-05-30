@@ -91,51 +91,66 @@ public class FuncionarioDAO {
 
     @Transactional
     public void updateFuncionario(Funcionario funcionario) {
-        // Buscar o funcionário existente
-        Funcionario existingFuncionario = findByCpf(funcionario.getCpf());
+        try {
+            // Buscar o funcionário existente
+            System.out.println("Buscando funcionário com CPF: " + funcionario.getCpf());
+            Funcionario existingFuncionario = findByCpf(funcionario.getCpf());
+            System.out.println("Funcionário encontrado: " + existingFuncionario);
 
-        // Mesclar os dados do funcionário
-        if (funcionario.getNome() != null) {
-            existingFuncionario.setNome(funcionario.getNome());
-        }
-        if (funcionario.getCarteira_trabalho() != null) {
-            existingFuncionario.setCarteira_trabalho(funcionario.getCarteira_trabalho());
-        }
-        if (funcionario.getEndereco() != null) {
-            if (funcionario.getEndereco().getRua() != null) {
-                existingFuncionario.getEndereco().setRua(funcionario.getEndereco().getRua());
+            // Mesclar os dados do funcionário
+            if (funcionario.getNome() != null) {
+                existingFuncionario.setNome(funcionario.getNome());
             }
-            if (funcionario.getEndereco().getBairro() != null) {
-                existingFuncionario.getEndereco().setBairro(funcionario.getEndereco().getBairro());
+            if (funcionario.getCarteira_trabalho() != null) {
+                existingFuncionario.setCarteira_trabalho(funcionario.getCarteira_trabalho());
             }
-            if (funcionario.getEndereco().getNumero() != 0) {
-                existingFuncionario.getEndereco().setNumero(funcionario.getEndereco().getNumero());
+            if (funcionario.getEndereco() != null) {
+                if (funcionario.getEndereco().getRua() != null) {
+                    existingFuncionario.getEndereco().setRua(funcionario.getEndereco().getRua());
+                }
+                if (funcionario.getEndereco().getBairro() != null) {
+                    existingFuncionario.getEndereco().setBairro(funcionario.getEndereco().getBairro());
+                }
+                if (funcionario.getEndereco().getNumero() != 0) {
+                    existingFuncionario.getEndereco().setNumero(funcionario.getEndereco().getNumero());
+                }
             }
-        }
-        if (funcionario.getSupervisorCpf() != null) {
-            existingFuncionario.setSupervisorCpf(funcionario.getSupervisorCpf());
-        }
+            if (funcionario.getSupervisorCpf() != null) {
+                existingFuncionario.setSupervisorCpf(funcionario.getSupervisorCpf());
+            }
 
-        // Executar a atualização dos dados do funcionário
-        String sql = "UPDATE Funcionario SET nome = ?, carteira_trabalho = ?, endereco_rua = ?, endereco_bairro = ?, endereco_numero = ?, supervisor_cpf = ? WHERE cpf = ?";
-        jdbcTemplate.update(sql, existingFuncionario.getNome(), existingFuncionario.getCarteira_trabalho(), existingFuncionario.getEndereco().getRua(), existingFuncionario.getEndereco().getBairro(), existingFuncionario.getEndereco().getNumero(), existingFuncionario.getSupervisorCpf(), existingFuncionario.getCpf());
+            // Executar a atualização dos dados do funcionário
+            String sql = "UPDATE Funcionario SET nome = ?, carteira_trabalho = ?, endereco_rua = ?, endereco_bairro = ?, endereco_numero = ?, supervisor_cpf = ? WHERE cpf = ?";
+            System.out.println("Executando SQL: " + sql);
+            jdbcTemplate.update(sql, existingFuncionario.getNome(), existingFuncionario.getCarteira_trabalho(), existingFuncionario.getEndereco().getRua(), existingFuncionario.getEndereco().getBairro(), existingFuncionario.getEndereco().getNumero(), existingFuncionario.getSupervisorCpf(), existingFuncionario.getCpf());
 
-        // Atualizar o telefone (se necessário)
-        if (funcionario.getTelefone() != null && !funcionario.getTelefone().isEmpty()) {
-            String sqlTelefone = "UPDATE Telefone SET telefone = ? WHERE cpf_funcionario = ?";
+            // Atualizar telefones
+            String sqlDeleteTelefone = "DELETE FROM Telefone WHERE cpf_funcionario = ?";
+            System.out.println("Deletando telefones para CPF: " + existingFuncionario.getCpf());
+            jdbcTemplate.update(sqlDeleteTelefone, existingFuncionario.getCpf());
+
+            String sqlInsertTelefone = "INSERT INTO Telefone (cpf_funcionario, telefone) VALUES (?, ?)";
             for (String telefone : funcionario.getTelefone()) {
-                jdbcTemplate.update(sqlTelefone, telefone, funcionario.getCpf());
+                System.out.println("Inserindo telefone: " + telefone + " para CPF: " + existingFuncionario.getCpf());
+                jdbcTemplate.update(sqlInsertTelefone, existingFuncionario.getCpf(), telefone);
             }
-        }
 
-        // Atualizar os dependentes (se necessário)
-        if (funcionario.getDependentes() != null && !funcionario.getDependentes().isEmpty()) {
-            String sqlDependente = "INSERT INTO Dependente (nome, cpf_funcionario) VALUES (?, ?) ON DUPLICATE KEY UPDATE nome = VALUES(nome)";
-            for (Dependente dependente : funcionario.getDependentes()) {
-                jdbcTemplate.update(sqlDependente, dependente.getNome(), funcionario.getCpf());
+            // Atualizar os dependentes (se necessário)
+            if (funcionario.getDependentes() != null && !funcionario.getDependentes().isEmpty()) {
+                String sqlDependente = "INSERT INTO Dependente (nome, cpfFuncionario) VALUES (?, ?) ON DUPLICATE KEY UPDATE nome = VALUES(nome)";
+                System.out.println("Executando SQL para dependentes: " + sqlDependente);
+                for (Dependente dependente : funcionario.getDependentes()) {
+                    System.out.println("Inserindo/Atualizando dependente: " + dependente.getNome() + " para CPF: " + funcionario.getCpf());
+                    jdbcTemplate.update(sqlDependente, dependente.getNome(), funcionario.getCpf());
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar funcionário: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
         }
     }
+
 
     //uso de procedure
     //na exclusão de um funcionário que é supervisor,os funcionários supervisionados por ele sao atualizaodos
